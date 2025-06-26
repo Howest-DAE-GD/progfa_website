@@ -44,7 +44,7 @@
 <body>
 
 <div class="demo">
-    <div id="loading">Loading game</div>
+    <div id="loading">Loading ...</div>
     <canvas id="canvas"></canvas>
 </div>
 
@@ -79,7 +79,19 @@
       document.getElementsByClassName('demo-content')[0].style.display = 'block';
     }
 
-    main()
+
+    function isMobileDevice() {
+        const hasTouch = navigator.maxTouchPoints > 1 || 'ontouchstart' in window;
+        const isMobileUA = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        return hasTouch && isMobileUA;
+    }
+
+    if (isMobileDevice()) {
+        document.getElementById("loading").textContent = "Game not yet supported on mobile devices 😔";
+    } else {
+        main()
+    }
+
 </script>
 
 
