@@ -1,0 +1,30 @@
+{
+  "players": [
+    {
+      "name": "lennert",
+      "score": {
+        "total": 0,
+        "words_correct": 0,
+        "letters_correct": 0,
+        "words_fault": 0,
+        "letters_fault": 0,
+        "time": "00:00:00.000",
+        "difficulty": "eazy",
+        "highs_core": 1
+      }
+    },
+    {
+      "name": "arne",
+      "score": {
+        "total": 0,
+        "words_correct": 0,
+        "letters_correct": 0,
+        "words_fault": 0,
+        "letters_fault": 0,
+        "time": "00:00:00.000",
+        "difficulty": "eazy",
+        "highs_core": 1
+      }
+    }
+  ]
+}

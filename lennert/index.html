@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>pygame window</title>
+
+    <meta name="author" content="Lennert De Kegel">
+    <meta name="rights" content="Lennert De Kegel">
+
+    <!-- styles -->
+    <!-- <link rel="stylesheet" href="/style/master.css"> -->
+    <link rel="stylesheet" href="stylesheet.css">
+
+    <!-- scripts --> <!-- convertor -->
+    <script src="pyodide/pyodide.js"></script>
+</head>
+<!--  -->
+<body>
+<!--<header>-->
+<!--    Space Typer-->
+<!--</header>-->
+<main>
+    <section class="game_window">
+        <img id="loading" src="loading.png" alt="loading ...">
+        <div class="demo-content">
+            <canvas width="1200" height="900" id="canvas"
+                    style="cursor: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAaUlEQVQ4T6XTQQ7AIAgEQPn/oxWMNK0isJSLXpyo2aXG03mIR/bo0DosSKsgD7BuAiMfoIIcAIqYAIJcgSziAhkkBCLE/QMNlZcPKwfzXDZYRxI1mVlk5v/dhRKwFwhBzAb+BvRZskYNHYNxeBFO+/RCAAAAAElFTkSuQmCC&quot;), auto;"></canvas>
+        </div>
+    </section>
+</main>
+<footer>
+    made by <cite>Lennert De Kegel</cite>
+</footer>
+
+
+<script>
+    const curloc = document.location.href;
+    const curdir = curloc.substring(0, curloc.lastIndexOf('/'));
+
+    async function main(){
+        let pyodide = await loadPyodide();
+
+        // Load micropip to be able to install packages and pygame community edition
+        await pyodide.loadPackage(["micropip", "pygame-ce"], { checkIntegrity: false })
+
+        // Load in all python files and files from the Resources directory
+        let zipResponse = await fetch("game.zip");
+        let zipBinary = await zipResponse.arrayBuffer();
+        pyodide.unpackArchive(zipBinary, "zip");
+
+        // Set canvas on which to draw the game
+        canvas = document.getElementById("canvas");
+        pyodide.canvas.setCanvas2D(canvas);
+
+        // Run the main.py file
+        pyodide.runPythonAsync(`
+          from main import main
+          await main()
+        `);
+
+        // Hide loading screen and show canvas
+        // document.getElementById('loading').style.display = 'none';
+        // document.getElementsByClassName('demo-content')[0].style.display = 'block';
+    }
+
+    function isMobileDevice() {
+        const hasTouch = navigator.maxTouchPoints > 1 || 'ontouchstart' in window;
+        const isMobileUA = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        return hasTouch && isMobileUA;
+    }
+
+    if (isMobileDevice()) {
+        document.getElementById("loading").textContent = "Game not yet supported on mobile devices 😔";
+    } else {
+        main()
+    }
+</script>
+</body><!-- scripts --></html>
