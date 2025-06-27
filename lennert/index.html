@@ -24,7 +24,9 @@
 <!--</header>-->
 <main>
     <section class="game_window">
-        <img id="loading" src="loading.png" alt="loading ...">
+        <div id="loading-container">
+            <img id="loading" src="loading.png" alt="loading ...">
+        </div>
         <div class="demo-content">
             <canvas width="1200" height="900" id="canvas"
                     style="cursor: url(&quot;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAaUlEQVQ4T6XTQQ7AIAgEQPn/oxWMNK0isJSLXpyo2aXG03mIR/bo0DosSKsgD7BuAiMfoIIcAIqYAIJcgSziAhkkBCLE/QMNlZcPKwfzXDZYRxI1mVlk5v/dhRKwFwhBzAb+BvRZskYNHYNxeBFO+/RCAAAAAElFTkSuQmCC&quot;), auto;"></canvas>
@@ -73,9 +75,13 @@
     }
 
     if (isMobileDevice()) {
-        document.getElementById("loading").textContent = "Game not yet supported on mobile devices 😔";
+        const img = document.getElementById("loading");
+        const text = document.createElement("div");
+        text.textContent = "Game not yet supported on mobile devices 😔";
+        img.parentNode.replaceChild(text, img);
     } else {
         main()
     }
 </script>
-</body><!-- scripts --></html>
+</body><!-- scripts -->
+</html>

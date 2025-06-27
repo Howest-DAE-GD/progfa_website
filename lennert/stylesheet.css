@@ -154,3 +154,13 @@ footer {
 footer > cite {
     color: lightgray;
 }
+
+#loading-container {
+    display: grid;
+    place-items: center;
+    width: 100vw;
+    height: calc(100vh - 104px);
+    color: orange;
+    font-size: 1.2rem;
+    text-align: center;
+}
