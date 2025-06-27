@@ -12,7 +12,7 @@ def zip_game():
     exclude_dirs = [root_dir / 'docs', root_dir / '.git', root_dir / '.idea',
                     root_dir / '__pycache__', root_dir / 'pyodide']
 
-    with (zipfile.ZipFile('game.zip', 'w', zipfile.ZIP_DEFLATED) as zipf):
+    with (zipfile.ZipFile(root_dir / 'game.zip', 'w', zipfile.ZIP_DEFLATED) as zipf):
         # Zip all python files in your project (but not from excluded directories)
         for file_path in root_dir.rglob('*.*'):
             if (file_path.is_file()
